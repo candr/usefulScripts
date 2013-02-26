@@ -1,0 +1,15 @@
+mkdir  2
+cd  2
+mkdir  1
+cd  1
+cd ..
+mkdir  2
+cd  2
+mkdir  1
+cd  1
+cd ..
+mkdir  2
+cd  2
+mkdir  1
+cd  1
+cd ..

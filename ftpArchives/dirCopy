@@ -1,0 +1,79 @@
+#!/bin/bash
+
+#This writes a script that willan entire folder, including subdirs, while preserving structure
+#Should work like a poor mans cp -r
+#output something like:
+#
+#mkdir test2
+#cd test2
+#mkdir 1
+#cd 1
+#cp ~/foo/bar1 .
+#cd ..
+#cp ~/bar2 .
+#
+#The point is to make something that can be emulated in an ftp script
+#won't deal with symbolics links or funny stuff like that
+#will overwrite old folder, don't use as an updater
+
+DIR="test1"
+NWDIR="test2"
+
+
+touch $NWDIR
+rm -r $NWDIR
+
+#File we output to. This, in the end, should be a runnable script
+OFILE=$(echo $(pwd)"/ofile")
+touch $OFILE
+rm $OFILE
+
+#Writing header, makes it bash and puts us at the head dir
+echo "#!/bin/bash" >> ofile
+echo "mkdir "$NWDIR >> ofile
+echo "cd "$NWDIR >> ofile
+
+
+#Put us in the right dir for reading
+pushd $DIR > /dev/null
+
+#array of all directories
+darr=(`find . -mindepth 1 -maxdepth 1 -type d -printf "%f\n"`) 
+
+
+index[0]=0
+depth=0
+
+#doing a DFS of the tree structure
+#print branch name as we enter it
+while [ $depth -ge 0 ]
+do
+	#fill up list at every iteration, because no 2d arrays in bash
+	darr=(`find . -mindepth 1 -maxdepth 1 -type d -printf "%f\n"`) 
+	
+	#check if there are no more folders to enter.
+	#if so, leave node by popping, decreasing depth
+	#and iterating index of new level
+	if [ ${index[depth]} -eq ${#darr[*]} ]
+	then
+		echo "cp "$(pwd)"/* ." >> $OFILE
+		echo "cd .." >> $OFILE
+		popd > /dev/null
+		depth=$(($depth-1))
+		if [ $depth -ge 0 ]
+		then
+			index[$depth]=$((${index[depth]}+1))
+		fi
+	#If there's folders to go into, we go into them
+	#push the folder, increase the depth, and set index
+	#to 0
+	else
+		echo "mkdir " ${darr[${index[$depth]}]} >> $OFILE
+		echo "cd " ${darr[${index[$depth]}]} >> $OFILE
+		pushd ${darr[${index[$depth]}]} > /dev/null
+		depth=$(($depth+1))
+		index[$depth]=0
+
+	fi
+		
+done

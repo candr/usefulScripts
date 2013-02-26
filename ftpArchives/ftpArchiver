@@ -1,0 +1,12 @@
+#!/bin/bash
+
+USRID="lakelan"
+PWD="splhcb2009"
+HOST="lakelandecabin.ca"
+
+ftp -n $HOST << ENDSCRIPT
+user $USRID $PWD
+cd public_html
+put hexConverters.cpp
+quit
+ENDSCRIPT
