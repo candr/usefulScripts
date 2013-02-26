@@ -1,0 +1,32 @@
+#!/bin/bash
+IFS=!
+arr=(`find * -printf %f!`) #array of all contents of folder
+len=${#arr[*]} #number of items in folder
+
+for (( i=0 ; $i < $len ; i=$i+1 ))
+do
+	unshuff[$i]=1
+done
+
+for (( i=0 ; $i < $len ; i=$i+1 ))
+do
+	num=$(($RANDOM % $len))
+	
+	echo number is $num	
+
+	while [ ${unshuff[$num]} -lt 0 ]
+	do
+		num=$(($num+1))
+		num=$(($num%$len))
+	done
+
+	shuff[$i]=$num
+	unshuff[$num]=-1
+done
+
+
+for (( i=0 ; $i < $len ; i=$i+1 ))
+do
+	echo ${arr[${shuff[$i]}]}
+done
+	
