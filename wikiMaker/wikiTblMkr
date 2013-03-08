@@ -1,7 +1,21 @@
 #!/bin/bash
 exec < "PLC_Logic.csv"
 
-while read line  
+echo '{|border = "1" style="wikitable"'
+echo "|+ Valve Positions"
+read line
+echo $line | sed -e 's/^/!/g' | sed -e 's/,/||/g'
+
+
+
+
+while read line
 do
-	echo $line
+	IFS=',' read -r first rest <<< "$line"
+	echo "|-"
+	echo "!"$first
+	rest=$(echo $rest | sed -e 's/,/||/g')
+	echo "|"$rest
 done
+
+echo "|}"
