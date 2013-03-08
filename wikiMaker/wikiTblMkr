@@ -1,0 +1,7 @@
+#!/bin/bash
+exec < "PLC_Logic.csv"
+
+while read line  
+do
+	echo $line
+done
