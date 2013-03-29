@@ -1,7 +1,9 @@
 #!/bin/bash
+DIR="songs"
 IFS=!
-arr=(`find * -printf %f!`) #array of all contents of folder
+arr=(`find $DIR/* -printf %f!`) #array of all contents of folder
 len=${#arr[*]} #number of items in folder
+
 
 for (( i=0 ; $i < $len ; i=$i+1 ))
 do
@@ -12,8 +14,6 @@ for (( i=0 ; $i < $len ; i=$i+1 ))
 do
 	num=$(($RANDOM % $len))
 	
-	echo number is $num	
-
 	while [ ${unshuff[$num]} -lt 0 ]
 	do
 		num=$(($num+1))
@@ -27,6 +27,6 @@ done
 
 for (( i=0 ; $i < $len ; i=$i+1 ))
 do
-	echo ${arr[${shuff[$i]}]}
+	echo $DIR/${arr[${shuff[$i]}]}
 done
 	
