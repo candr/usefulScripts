@@ -1,0 +1,4 @@
+user lakelan splhcb2009
+cd public_html/sandbox/splitTables
+put hexConverters.cpp
+quit
