@@ -1,0 +1,32 @@
+DROP TABLE data2;
+CREATE TABLE data2 (
+	`date` DATETIME,
+	`close` INT,
+	`open` INT
+);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-05-01", 5813, 341);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-30", 5398, 455);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-27", 6700, 678);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-26", 8970, 785);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-25", 9900, 892);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-24", 13028, 992);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-23", 16670, 1013);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-20", 23498, 1223);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-19", 34544, 1345);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-18", 44334, 1604);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-17", 54370, 1803);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-14", 58013, 2102);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-13", 60523, 2234);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-12", 62277, 2015);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-11", 62620, 2126);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-10", 62844, 3104);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-09", 63623, 3504);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-05", 63368, 4102);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-04", 62431, 4305);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-03", 62932, 4603);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-04-02", 61863, 5103);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-03-30", 59955, 5342);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-03-29", 60986, 5782);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-03-28", 61762, 5901);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-03-27", 61448, 5603);
+INSERT INTO data2 ( date, close, open) VALUES ( "2012-03-26", 60698, 5801);

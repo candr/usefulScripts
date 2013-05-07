@@ -1,0 +1,63 @@
+#!/bin/bash
+
+#filename is used as the name of the table
+sname=$(echo $1)
+exec < $sname
+sname=$(basename $sname .tsv)
+
+
+echo "DROP TABLE" $sname";"
+echo "CREATE TABLE" $sname "("
+read line
+read line2
+
+cols=$(echo $line | awk '{print NF}')
+
+mustQuoteTypes="DATETIME VARCHAR"
+colsNeedQuotes=0
+
+insertStatement=$(echo "INSERT INTO" $sname "(")
+for(( i=1 ; $i < $cols ; i=$i+1))
+do
+	colName=$(echo $line | awk -v x=$i '{print $x}' | sed 's/[^a-zA-Z0-9\-]//g')
+	colType=$(echo $line2 | awk -v x=$i '{print $x}' | sed 's/[^a-zA-Z0-9]//g')
+	if `echo ${mustQuoteTypes} | grep "${colType}" 1>/dev/null 2>&1`
+	then
+		colsNeedQuotes=$(( $colsNeedQuotes | 1<<$i-1 ))
+	fi
+	echo '	`'$colName'` '$colType','
+	insertStatement="$insertStatement $colName,"
+done
+colName=$(echo $line | awk '{print $NF}' | sed 's/[^a-zA-Z0-9]//g')
+colType=$(echo $line2 | awk -v x=$i '{print $NF}' | sed 's/[^a-zA-Z0-9]//g')
+if `echo ${mustQuoteTypes} | grep "${colType}" 1>/dev/null 2>&1`
+then
+	colsNeedQuotes=$(( $colsNeedQuotes | 1<<$i-1 ))
+fi
+echo '	`'$colName'` '$colType
+insertStatement="$insertStatement $colName) VALUES ("
+echo ');'
+
+while read line 
+do
+	ins=$insertStatement
+	for(( i=1 ; $i < $cols ; i=$i+1))
+	do
+		colVal=$(echo $line | awk -v x=$i '{print $x}' | sed 's/[^a-zA-Z0-9\-]//g')
+		if [ $(($colsNeedQuotes & 1<<$i-1)) != 0 ]
+		then
+			ins="$ins \"$colVal\","
+		else
+			ins="$ins $colVal,"
+		fi
+	done
+	colVal=$(echo $line | awk -v x=$i '{print $NF}' | sed 's/[^a-zA-Z0-9]//g')
+	if [ $(($colsNeedQuotes & 1<<$i-1)) != 0 ]
+	then
+		ins="$ins \"$colVal\");"
+	else
+		ins="$ins $colVal);"
+	fi
+	echo $ins
+done
+	
