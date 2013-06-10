@@ -32,29 +32,35 @@ def dashedLines(dashedArray, value):
 	dashedString = "" 
 	cursor = 0
 	while value != 0:
-		if (cursor == 0) and (dashedArray[0] != 0):
-			dashedString += "3,3"
-			dashedArray[0] -= 1
+		if dashedArray[cursor] != 0:
+			if (cursor == 0):
+				dashedString += "3,3"
+			elif (cursor == 1):
+				dashedString += "5,3"
+			elif (cursor == 2):
+				dashedString += "10,3"
+
+			dashedArray[cursor]-= 1
 			value-= 1
-		if (cursor == 1) and (dashedArray[1] != 1):
-			dashedString += "5,3"
-			dashedArray[1]-= 1
-			value-= 1
-		if (cursor == 2) and (dashedArray[2] != 2):
-			dashedString += "10,3"
-			dashedArray[2]-= 1
-			value-= 1
+
+			if value != 0:
+				dashedString += ","
 
 		cursor = (cursor+1)%3
-		if value != 0:
-			dashedString += ","
 
 	return dashedString
-		
-		
-	  
 	
 
 if __name__ == "__main__":
-	for i in range(15):
-		print "{0} {1}".format(divideInto3Slots(5, i), dashedLines(divideInto3Slots(5, i), 5))
+	print "2 space"
+	for i in range(6):
+		print "{0} {1}".format(divideInto3Slots(2, i), dashedLines(divideInto3Slots(2, i), 2))
+
+	print "\n\n 3 space"
+	for i in range(10):
+		print "{0} {1}".format(divideInto3Slots(3, i), dashedLines(divideInto3Slots(3, i), 3))
+
+
+	print "\n\n 4 space"
+	for i in range(12):
+		print "{0} {1}".format(divideInto3Slots(4, i), dashedLines(divideInto3Slots(4, i), 4))

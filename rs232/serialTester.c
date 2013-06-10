@@ -28,19 +28,24 @@ int main(int argc, char** argv){
 	}
 	resp = (char*)malloc(512 * sizeof(char));
 	seconds = time(NULL);
+	int count = 0;
 	while(1){
 		if(seconds == time(NULL)) {
 			continue;
 		} else {
 			seconds = time(NULL);
+			count++;
 		}
-		w = write(dev, "1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,4.0,4.0,4.0", 48);
-		if(w < 0){
-			printf("Could not write, err %i\n", errno);
-			return 1;
-		}
+		if(count == 2){
+			w = write(dev, "!0.1,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,1.0,1.1,1.2,4.0,4.1,4.2;", 62);
+			if(w < 0){
+				printf("Could not write, err %i\n", errno);
+				return 1;
+			}
 
-		sleep(1);
+			sleep(1);
+			count = 0;
+		}
 
 
 	}
