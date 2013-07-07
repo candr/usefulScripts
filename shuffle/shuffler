@@ -27,6 +27,7 @@ done
 
 for (( i=0 ; $i < $len ; i=$i+1 ))
 do
-	echo $DIR/${arr[${shuff[$i]}]}
+	echo $DIR/${arr[${shuff[$i]}]} > shuffled.plst
 done
 	
+
