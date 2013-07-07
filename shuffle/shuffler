@@ -1,11 +1,12 @@
 #!/bin/bash
 DIR="songs"
 IFS=!
-arr=(`find $DIR/* -printf %f!`) #array of all contents of folder
+#arr=(`find $DIR/* -printf %f!`) #array of all contents of folder
+arr=(`find $DIR/* -type f`) #array of all contents of folder
 len=${#arr[*]} #number of items in folder
 
-touch shuffled.plst
-rm shuffled.plst
+touch playlist 
+rm playlist
 
 for (( i=0 ; $i < $len ; i=$i+1 ))
 do
@@ -29,7 +30,7 @@ done
 
 for (( i=0 ; $i < $len ; i=$i+1 ))
 do
-	echo $DIR/${arr[${shuff[$i]}]} >> shuffled.plst
+	echo ${arr[${shuff[$i]}]} >> playlist
 done
 	
 
