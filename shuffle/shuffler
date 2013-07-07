@@ -33,4 +33,4 @@ do
 	echo ${arr[${shuff[$i]}]} >> playlist
 done
 	
-
+mplayer -playlist playlist
